@@ -1,17 +1,32 @@
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+  Template.tweetBox.onRendered(function() {
+    // numChars starts at 0 
+    Session.set('numChars', 0);
+  });
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+  Template.tweetBox.helpers({
+    charCount: function () {
+      return 140 - Session.get('numChars');
+    },
+
+    charClass: function() {
+      if (Session.get('numChars') > 140) {
+        return 'errCharCount' // css class name
+      } else {
+        return 'charCount' // css class name
+      }
+    },
+
+    disableButton: function() {
+      if (Session.get('numChars') <= 0 || Session.get('numChars') > 140) {
+        return 'disabled';
+      }
     }
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+  Template.tweetBox.events({
+    'input #tweetText': function () {
+      Session.set('numChars', $('#tweetText').val().length);
     }
   });
 }
