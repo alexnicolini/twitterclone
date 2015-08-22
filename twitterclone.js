@@ -1,3 +1,5 @@
+Tweets = new Mongo.Collection('tweets');
+
 if (Meteor.isClient) {
   Template.tweetBox.onRendered(function() {
     // numChars starts at 0 
@@ -27,6 +29,13 @@ if (Meteor.isClient) {
   Template.tweetBox.events({
     'input #tweetText': function () {
       Session.set('numChars', $('#tweetText').val().length);
+    },
+
+    'click button': function() {
+      var tweet = $('#tweetText').val();
+      $('#tweetText').val('');
+      Session.set('numChars', 0);
+      Tweets.insert({ message: tweet });
     }
   });
 }
