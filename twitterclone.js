@@ -1,6 +1,7 @@
 Tweets = new Mongo.Collection('tweets');
 
 if (Meteor.isClient) {
+
   Template.tweetBox.onRendered(function() {
     // numChars starts at 0 
     Session.set('numChars', 0);
@@ -20,7 +21,9 @@ if (Meteor.isClient) {
     },
 
     disableButton: function() {
-      if (Session.get('numChars') <= 0 || Session.get('numChars') > 140) {
+      if (Session.get('numChars') <= 0 || 
+          Session.get('numChars') > 140 || 
+          !Meteor.user()) {
         return 'disabled';
       }
     }
@@ -35,7 +38,38 @@ if (Meteor.isClient) {
       var tweet = $('#tweetText').val();
       $('#tweetText').val('');
       Session.set('numChars', 0);
-      Tweets.insert({ message: tweet });
+      if (Meteor.user()) {
+        Tweets.insert({ message: tweet, user: Meteor.user().username });
+      }
+    }
+  });
+
+  Template.userManagement.events({
+    'click #signup': function () {
+      var user = {
+        username: $('#signup-username').val(),
+        password: $('#signup-password').val(),
+        profile: {
+          fullname: $('#signup-fullname').val()
+        }
+      }
+
+      Accounts.createUser(user, function(error) {
+        if (error) alert(error);
+      });
+    },
+
+    'click #login': function() {
+      var username = $('#login-username').val();
+      var password = $('#login-password').val();
+
+      Meteor.loginWithPassword(username, password, function (error) {
+        if (error) alert(error);
+      });
+    },
+
+    'click #logout': function() {
+      Meteor.logout();
     }
   });
 }
