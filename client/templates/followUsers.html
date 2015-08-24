@@ -10,4 +10,12 @@
       <button type="button" class="btn btn-default" id="follow">Follow @{{foundUser.username}}</button>
     </div>
   {{/if}}
+
+  <!-- List of people to follow -->
+  <div class="recommended-users">
+    <h5>Who to follow:</h5>
+    {{#each recommendedUsers}}
+      <button type="button" class="btn btn-default" id="followRec">Follow @{{this.username}}</button>
+    {{/each}}
+  </div>
 </template>
