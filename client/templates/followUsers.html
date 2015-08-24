@@ -1,0 +1,13 @@
+<template name="followUsers">
+  <form class="form-inline">
+    <input type="text" class="form-control" id="searchUser" placeholder="Search for user">
+    <button type="submit" class="btn btn-info">Search</button>
+  </form>
+
+  <!-- Display box found through search -->
+  {{#if foundUser}}
+    <div class="found-user">
+      <button type="button" class="btn btn-default" id="follow">Follow @{{foundUser.username}}</button>
+    </div>
+  {{/if}}
+</template>
