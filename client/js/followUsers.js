@@ -13,9 +13,9 @@ Template.followUsers.events({
     var searchUser = event.target.searchUser.value;
 
     var foundUser = Meteor.call('findUser', searchUser, function(err, res) {
-      if (res) Session.set('foundUser', true);
+      if (res) Session.set('foundUser', res);
     });
-    return false;
+    return false; // evita que o submit do form dê um refresh na página
   },
 
   'click #follow': function() {

@@ -1,9 +1,11 @@
 Meteor.methods({
-  'findUser': function(userName) {
+  'findUser': function(username) {
     return Meteor.users.findOne({
-      username: userName
+      username: username
     }, {
-      fields: { 'username': 1 }
+      fields: { 
+        'username': 1 // inclui somente um campo específico nos documentos do resultado
+      }
     });
   },
 
