@@ -1,5 +1,8 @@
 Template.tweetFeed.onCreated(function() {
-  this.subscribe('tweets');
+  if (Meteor.user()) {
+    this.subscribe('tweets', Meteor.user().username);
+    this.subscribe('ownTweets', Meteor.user().username);
+  }
 });
 
 Template.tweetFeed.helpers({
