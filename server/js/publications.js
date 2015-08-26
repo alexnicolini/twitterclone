@@ -29,3 +29,7 @@ Meteor.publish('users', function(username) {
 Meteor.publish('followings', function(username) {
   return Relationships.find({ follower: username });
 });
+
+Meteor.publish('followers', function(username) {
+  return Relationships.find({ following: username });
+});

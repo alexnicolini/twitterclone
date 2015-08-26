@@ -6,6 +6,19 @@
           <!-- Message for logged in user -->
           <p>Hello <strong>@{{currentUser.username}}</strong>, welcome to twitterClone</p>
           <button type="button" class="btn btn-info fullbutton" id="logout">Log out</button>
+
+          <table class="table">
+            <tr>
+              <td class="tableHeader">Tweets</td>
+              <td class="tableHeader">Following</td>
+              <td class="tableHeader">Followers</td>
+            </tr>
+            <tr>
+              <td class="tableContent">{{tweets}}</td>
+              <td class="tableContent">{{following}}</td>
+              <td class="tableContent">{{followers}}</td>
+            </tr>
+          </table>
         {{else}}
           <!-- Login -->
           <h4>Already have an account?</h4>
